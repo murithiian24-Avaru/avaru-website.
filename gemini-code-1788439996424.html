@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaru Tech Company Limited | Building Technology for a Smarter Future</title>
+    <meta name="description" content="Avaru is a Kenyan technology company creating innovative digital products that solve real-world problems across mobility, advertising, financial technology, artificial intelligence and aviation.">
+    
+    <meta property="og:title" content="Avaru Tech Company Limited">
+    <meta property="og:description" content="Building Technology for a Smarter Future. Scalable digital products from Kenya to the world.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://avaru.tech">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#050B14',
+                            card: '#0B132B',
+                            border: '#1E293B',
+                            primary: '#3B82F6',
+                            electric: '#60A5FA',
+                            glow: '#2563EB'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050B14; color: #F8FAFC; }
+        .glass-panel { background: rgba(11, 19, 43, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(59, 130, 246, 0.15); }
+        .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s ease; }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.4); transform: translateY(-3px); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
+        .gradient-text { background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #93C5FD 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-glow { background: radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.18) 0%, rgba(5, 11, 20, 0) 70%); }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-100 antialiased selection:bg-blue-500 selection:text-white">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function App() {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+            const [formSubmitted, setFormSubmitted] = useState(false);
+
+            useEffect(() => {
+                window.scrollTo(0, 0);
+                setMobileMenuOpen(false);
+                setTimeout(() => {
+                    if (window.lucide) window.lucide.createIcons();
+                }, 100);
+            }, [currentPage]);
+
+            const navigateTo = (page) => {
+                setCurrentPage(page);
+            };
+
+            const handleFormSubmit = (e) => {
+                e.preventDefault();
+                setFormSubmitted(true);
+                setTimeout(() => setFormSubmitted(false), 5000);
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col relative overflow-x-hidden">
+                    {/* Background Glow Effect */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] hero-glow pointer-events-none z-0"></div>
+
+                    {/* Navigation */}
+                    <header className="sticky top-0 z-50 glass-panel border-b border-slate-800/80">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigateTo('home')}>
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                                    <span className="text-white font-extrabold text-xl tracking-wider">A</span>
+                                </div>
+                                <div>
+                                    <span className="font-extrabold text-xl tracking-tight text-white">AVARU</span>
+                                    <span className="block text-[10px] text-blue-400 font-semibold uppercase tracking-widest">Tech Company</span>
+                                </div>
+                            </div>
+
+                            {/* Desktop Nav */}
+                            <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 text-sm font-medium">
+                                <button onClick={() => navigateTo('home')} className={`px-3 py-2 rounded-lg transition ${currentPage === 'home' ? 'text-blue-400 bg-blue-500/10' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'}`}>Home</button>
+                                <button onClick={() => navigateTo('about')} className={`px-3 py-2 rounded-lg transition ${currentPage === 'about' ? 'text-blue-400 bg-blue-500/10' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'}`}>About</button>
+                                <button onClick={() => navigateTo('products')} className={`px-3 py-2 rounded-lg transition ${currentPage === 'products' ? 'text-blue-400 bg-blue-500/10' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'}`}>Products</button>
+                                <button onClick={() => navigateTo('careers')} className={`px-3 py-2 rounded-lg transition ${currentPage === 'careers' ? 'text-blue-400 bg-blue-500/10' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'}`}>Careers</button>
+                                <button onClick={() => navigateTo('investors')} className={`px-3 py-2 rounded-lg transition ${currentPage === 'investors' ? 'text-blue-400 bg-blue-500/10' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'}`}>Investors</button>
+                                <button onClick={() => navigateTo('blog')} className={`px-3 py-2 rounded-lg transition ${currentPage === 'blog' ? 'text-blue-400 bg-blue-500/10' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'}`}>Blog</button>
+                                <button onClick={() => navigateTo('contact')} className={`px-3 py-2 rounded-lg transition ${currentPage === 'contact' ? 'text-blue-400 bg-blue-500/10' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'}`}>Contact</button>
+                            </nav>
+
+                            <div className="hidden lg:flex items-center space-x-4">
+                                <button onClick={() => navigateTo('investors')} className="relative group overflow-hidden rounded-xl p-[1px] focus:outline-none">
+                                    <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-300 group-hover:opacity-90"></span>
+                                    <span className="relative px-5 py-2.5 rounded-[11px] bg-brand-dark flex items-center space-x-2 text-sm font-semibold text-white transition-all group-hover:bg-opacity-0">
+                                        <span>Partner With Us</span>
+                                        <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                                    </span>
+                                </button>
+                            </div>
+
+                            {/* Mobile Hamburger Toggle */}
+                            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden text-slate-300 hover:text-white p-2">
+                                <i data-lucide={mobileMenuOpen ? "x" : "menu"} className="w-6 h-6"></i>
+                            </button>
+                        </div>
+
+                        {/* Mobile Menu */}
+                        {mobileMenuOpen && (
+                            <div className="lg:hidden glass-panel border-b border-slate-800 px-4 pt-2 pb-6 space-y-2 animate-fadeIn">
+                                <button onClick={() => navigateTo('home')} className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:bg-blue-500/10 hover:text-blue-400">Home</button>
+                                <button onClick={() => navigateTo('about')} className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:bg-blue-500/10 hover:text-blue-400">About Us</button>
+                                <button onClick={() => navigateTo('products')} className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:bg-blue-500/10 hover:text-blue-400">Products</button>
+                                <button onClick={() => navigateTo('careers')} className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:bg-blue-500/10 hover:text-blue-400">Careers</button>
+                                <button onClick={() => navigateTo('investors')} className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:bg-blue-500/10 hover:text-blue-400">Investors</button>
+                                <button onClick={() => navigateTo('blog')} className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:bg-blue-500/10 hover:text-blue-400">Blog</button>
+                                <button onClick={() => navigateTo('contact')} className="block w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:bg-blue-500/10 hover:text-blue-400">Contact</button>
+                                <div className="pt-2">
+                                    <button onClick={() => navigateTo('investors')} className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-center font-semibold text-white shadow-lg shadow-blue-500/20">
+                                        Partner With Us
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </header>
+
+                    {/* Main Content Area */}
+                    <main className="flex-grow z-10">
+                        {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
+                        {currentPage === 'about' && <AboutPage navigateTo={navigateTo} />}
+                        {currentPage === 'products' && <ProductsPage navigateTo={navigateTo} />}
+                        {currentPage === 'careers' && <CareersPage navigateTo={navigateTo} formSubmitted={formSubmitted} handleFormSubmit={handleFormSubmit} />}
+                        {currentPage === 'investors' && <InvestorsPage navigateTo={navigateTo} formSubmitted={formSubmitted} handleFormSubmit={handleFormSubmit} />}
+                        {currentPage === 'blog' && <BlogPage />}
+                        {currentPage === 'contact' && <ContactPage formSubmitted={formSubmitted} handleFormSubmit={handleFormSubmit} />}
+                        {currentPage === 'privacy' && <PrivacyPage />}
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="glass-panel border-t border-slate-800/80 mt-20 pt-16 pb-12 text-slate-400">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+                                <div className="lg:col-span-2 space-y-4">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center">
+                                            <span className="text-white font-extrabold text-lg">A</span>
+                                        </div>
+                                        <span className="font-extrabold text-xl text-white">AVARU</span>
+                                    </div>
+                                    <p className="text-slate-400 text-sm max-w-sm">“Building Technology for a Smarter Future.” A Kenyan technology company building scalable digital products for Africa and the world.</p>
+                                    <div className="flex space-x-4 pt-2">
+                                        <a href="#linkedin" className="w-9 h-9 rounded-lg bg-slate-800/80 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="linkedin" className="w-4 h-4"></i></a>
+                                        <a href="#x" className="w-9 h-9 rounded-lg bg-slate-800/80 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="twitter" className="w-4 h-4"></i></a>
+                                        <a href="#instagram" className="w-9 h-9 rounded-lg bg-slate-800/80 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="instagram" className="w-4 h-4"></i></a>
+                                        <a href="#facebook" className="w-9 h-9 rounded-lg bg-slate-800/80 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="facebook" className="w-4 h-4"></i></a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="text-white font-semibold text-sm mb-4 tracking-wider uppercase">Company</h4>
+                                    <ul className="space-y-2.5 text-sm">
+                                        <li><button onClick={() => navigateTo('about')} className="hover:text-blue-400 transition">About</button></li>
+                                        <li><button onClick={() => navigateTo('careers')} className="hover:text-blue-400 transition">Careers</button></li>
+                                        <li><button onClick={() => navigateTo('contact')} className="hover:text-blue-400 transition">Contact</button></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 className="text-white font-semibold text-sm mb-4 tracking-wider uppercase">Products</h4>
+                                    <ul className="space-y-2.5 text-sm">
+                                        <li><button onClick={() => navigateTo('products')} className="hover:text-blue-400 transition">AdLease</button></li>
+                                        <li><button onClick={() => navigateTo('products')} className="hover:text-blue-400 transition">Zubari</button></li>
+                                        <li><button onClick={() => navigateTo('products')} className="hover:text-blue-400 transition">AutoEar</button></li>
+                                        <li><button onClick={() => navigateTo('products')} className="hover:text-blue-400 transition">AeroVault</button></li>
+                                        <li><button onClick={() => navigateTo('products')} className="hover:text-blue-400 transition">The Haven</button></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 className="text-white font-semibold text-sm mb-4 tracking-wider uppercase">Resources</h4>
+                                    <ul className="space-y-2.5 text-sm">
+                                        <li><button onClick={() => navigateTo('blog')} className="hover:text-blue-400 transition">Blog</button></li>
+                                        <li><button onClick={() => navigateTo('investors')} className="hover:text-blue-400 transition">Investors</button></li>
+                                        <li><button onClick={() => navigateTo('privacy')} className="hover:text-blue-400 transition">Privacy Policy</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="border-t border-slate-800/80 pt-8 flex flex-col md:flex-row items-center justify-between text-xs">
+                                <p>© 2026 Avaru Tech Company Limited. All Rights Reserved.</p>
+                                <div className="flex space-x-6 mt-4 md:mt-0">
+                                    <button onClick={() => navigateTo('privacy')} className="hover:text-white transition">Privacy Policy</button>
+                                    <button onClick={() => navigateTo('privacy')} className="hover:text-white transition">Terms of Service</button>
+                                    <button onClick={() => navigateTo('contact')} className="hover:text-white transition">Security</button>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        // HOME PAGE
+        function HomePage({ navigateTo }) {
+            return (
+                <div className="space-y-24 pb-16">
+                    {/* Hero Section */}
+                    <section className="relative pt-20 pb-28 overflow-hidden">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                                <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+                                    <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold tracking-wider uppercase animate-pulse">
+                                        <i data-lucide="sparkles" className="w-3.5 h-3.5"></i>
+                                        <span>Kenyan Technology Company</span>
+                                    </div>
+                                    <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
+                                        AVARU <br />
+                                        <span className="gradient-text">Building Technology for a Smarter Future.</span>
+                                    </h1>
+                                    <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                                        “Avaru is a Kenyan technology company creating innovative digital products that solve real-world problems across mobility, advertising, financial technology, artificial intelligence and aviation.”
+                                    </p>
+                                    <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                                        <button onClick={() => navigateTo('products')} className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-xl shadow-blue-600/30 hover:opacity-95 transition flex items-center justify-center space-x-2">
+                                            <span>Explore Our Products</span>
+                                            <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                                        </button>
+                                        <button onClick={() => navigateTo('investors')} className="w-full sm:w-auto px-8 py-4 rounded-xl glass-card text-white font-semibold hover:border-blue-500/50 transition flex items-center justify-center space-x-2">
+                                            <span>Partner With Avaru</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="lg:col-span-5 relative">
+                                    <div className="relative mx-auto w-full max-w-md aspect-square rounded-3xl glass-panel p-6 flex flex-col justify-between shadow-2xl border border-blue-500/20 animate-float">
+                                        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                                            <div className="flex items-center space-x-2">
+                                                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                            </div>
+                                            <span className="text-xs text-blue-400 font-mono">ecosystem.avaru.tech</span>
+                                        </div>
+                                        <div className="space-y-4 my-auto">
+                                            <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-between">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400"><i data-lucide="smartphone" className="w-5 h-5"></i></div>
+                                                    <div>
+                                                        <h4 className="text-sm font-bold text-white">AdLease Engine</h4>
+                                                        <p className="text-xs text-slate-400">Device Ownership Platform</p>
+                                                    </div>
+                                                </div>
+                                                <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Active</span>
+                                            </div>
+                                            <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-between">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-10 h-10 rounded-lg bg-cyan-600/20 flex items-center justify-center text-cyan-400"><i data-lucide="zap" className="w-5 h-5"></i></div>
+                                                    <div>
+                                                        <h4 className="text-sm font-bold text-white">Zubari Mobility</h4>
+                                                        <p className="text-xs text-slate-400">Electric Vehicle Network</p>
+                                                    </div>
+                                                </div>
+                                                <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">Live</span>
+                                            </div>
+                                            <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-10 h-10 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-400"><i data-lucide="cpu" className="w-5 h-5"></i></div>
+                                                    <div>
+                                                        <h4 className="text-sm font-bold text-white">AI & Aviation</h4>
+                                                        <p className="text-xs text-slate-400">AutoEar & AeroVault</p>
+                                                    </div>
+                                                </div>
+                                                <span className="text-xs font-mono text-blue-400 bg-blue-500/10 px-2 py-1 rounded">Scaling</span>
+                                            </div>
+                                        </div>
+                                        <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                            <span>Origin: Nairobi, Kenya</span>
+                                            <span className="text-blue-400 font-semibold">Global Scale</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Trust / Introduction Section */}
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Technology. Innovation. Impact.</h2>
+                            <p className="text-slate-300 text-lg">Avaru develops technology products designed to make everyday life more connected, accessible and intelligent.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition"></div>
+                                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6"><i data-lucide="globe" className="w-6 h-6"></i></div>
+                                <h3 className="text-xl font-bold text-white mb-2">Kenya</h3>
+                                <p className="text-blue-400 font-medium text-sm mb-4">Built in Africa</p>
+                                <p className="text-slate-400 text-sm">Rooted in Nairobi's vibrant tech ecosystem, engineering solutions tailored for emerging and global markets.</p>
+                            </div>
+                            <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition"></div>
+                                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-6"><i data-lucide="layers" className="w-6 h-6"></i></div>
+                                <h3 className="text-xl font-bold text-white mb-2">Multiple Products</h3>
+                                <p className="text-cyan-400 font-medium text-sm mb-4">A growing technology portfolio</p>
+                                <p className="text-slate-400 text-sm">Diverse digital products spanning advertising, fintech, electric mobility, AI and aviation education.</p>
+                            </div>
+                            <div className="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition"></div>
+                                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6"><i data-lucide="trending-up" className="w-6 h-6"></i></div>
+                                <h3 className="text-xl font-bold text-white mb-2">Global Vision</h3>
+                                <p className="text-indigo-400 font-medium text-sm mb-4">Designed for international scalability</p>
+                                <p className="text-slate-400 text-sm">Architected from day one to scale across Africa and seamlessly expand into global markets.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Products Preview Section */}
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                            <div>
+                                <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Our Ecosystem</span>
+                                <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">Our Technology</h2>
+                            </div>
+                            <p className="text-slate-400 max-w-md text-sm mt-2 md:mt-0">“Building products that solve meaningful problems.”</p>
+                        </div>
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6"><i data-lucide="smartphone" className="w-6 h-6"></i></div>
+                                    <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Watch. Earn. Own.</span>
+                                    <h3 className="text-2xl font-bold text-white mt-1 mb-3">AdLease</h3>
+                                    <p className="text-slate-300 text-sm mb-6">“An advertising-powered device ownership platform designed to help users work toward smartphone ownership while creating value for users, advertisers and financing partners.”</p>
+                                    <ul className="space-y-2 mb-8 text-xs text-slate-300 font-medium">
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-blue-400"></i><span>Watch Ads & Earn Rewards</span></li>
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-blue-400"></i><span>Real-time Balance Tracking</span></li>
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-blue-400"></i><span>Sustainable Device Ownership</span></li>
+                                    </ul>
+                                </div>
+                                <button onClick={() => navigateTo('products')} className="w-full py-3 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 font-semibold text-sm transition flex items-center justify-center space-x-2">
+                                    <span>Explore AdLease</span>
+                                    <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            <div className="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-6"><i data-lucide="zap" className="w-6 h-6"></i></div>
+                                    <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest">The Future of Urban Mobility</span>
+                                    <h3 className="text-2xl font-bold text-white mt-1 mb-3">Zubari</h3>
+                                    <p className="text-slate-300 text-sm mb-6">“An electric mobility platform designed to connect people with convenient, efficient and sustainable transportation.”</p>
+                                    <ul className="space-y-2 mb-8 text-xs text-slate-300 font-medium">
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-cyan-400"></i><span>Electric Vehicles & Charging Network</span></li>
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-cyan-400"></i><span>Seamless Ride Booking</span></li>
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-cyan-400"></i><span>Driver & Passenger Ecosystem</span></li>
+                                    </ul>
+                                </div>
+                                <button onClick={() => navigateTo('products')} className="w-full py-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-semibold text-sm transition flex items-center justify-center space-x-2">
+                                    <span>Discover Zubari</span>
+                                    <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            <div className="glass-card p-8 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6"><i data-lucide="cpu" className="w-6 h-6"></i></div>
+                                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">Vehicle Recognition AI</span>
+                                    <h3 className="text-2xl font-bold text-white mt-1 mb-3">AutoEar</h3>
+                                    <p className="text-slate-300 text-sm mb-6">“An intelligent vehicle identification and discovery concept designed to make vehicle recognition smarter and more accessible.”</p>
+                                    <ul className="space-y-2 mb-8 text-xs text-slate-300 font-medium">
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-indigo-400"></i><span>AI-powered Vehicle Identification</span></li>
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-indigo-400"></i><span>Comprehensive Database Lookup</span></li>
+                                        <li className="flex items-center space-x-2"><i data-lucide="check" className="w-4 h-4 text-indigo-400"></i><span>Smart Search & Analytics</span></li>
+                                    </ul>
+                                </div>
+                                <button onClick={() => navigateTo('products')} className="w-full py-3 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 font-semibold text-sm transition flex items-center justify-center space-x-2">
+                                    <span>Explore AutoEar</span>
+                                    <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="mt-8 text-center">
+                            <button onClick={() => navigateTo('products')} className="inline-flex items-center space-x-2 text-blue-400 font-semibold hover:text-blue-300 transition">
+                                <span>View all 5 products including AeroVault & The Haven</span>
+                                <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </section>
+
+                    {/* Why Avaru Section */}
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+                        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                            <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Our Philosophy</span>
+                            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Why We Build</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div className="glass-card p-6 rounded-2xl">
+                                <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4"><i data-lucide="target" className="w-5 h-5"></i></div>
+                                <h3 className="text-lg font-bold text-white mb-2">Real-World Problems</h3>
+                                <p className="text-slate-400 text-sm">“We focus on technology that addresses genuine everyday challenges.”</p>
+                            </div>
+                            <div className="glass-card p-6 rounded-2xl">
+                                <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-4"><i data-lucide="compass" className="w-5 h-5"></i></div>
+                                <h3 className="text-lg font-bold text-white mb-2">African Innovation</h3>
+                                <p className="text-slate-400 text-sm">“Building from Africa with solutions designed for global relevance.”</p>
+                            </div>
+                            <div className="glass-card p-6 rounded-2xl">
+                                <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-4"><i data-lucide="cpu" className="w-5 h-5"></i></div>
+                                <h3 className="text-lg font-bold text-white mb-2">Intelligent Technology</h3>
+                                <p className="text-slate-400 text-sm">“Combining software, AI, data and modern digital infrastructure.”</p>
+                            </div>
+                            <div className="glass-card p-6 rounded-2xl">
+                                <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4"><i data-lucide="trending-up" className="w-5 h-5"></i></div>
+                                <h3 className="text-lg font-bold text-white mb-2">Scalable Products</h3>
+                                <p className="text-slate-400 text-sm">“Designing technology ecosystems capable of growing across markets.”</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // ABOUT US PAGE
+        function AboutPage({ navigateTo }) {
+            return (
+                <div className="space-y-24 py-12">
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="max-w-3xl mx-auto text-center space-y-6">
+                            <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">About Avaru</span>
+                            <h1 className="text-4xl sm:text-5xl font-extrabold text-white">We Are Building More Than Apps.</h1>
+                            <p className="text-lg text-slate-300 leading-relaxed">
+                                “Avaru Tech Company Limited is a technology company focused on designing, developing and scaling innovative digital products. Our vision is to build technology that improves how people move, learn, earn, communicate and access opportunities. We believe Africa is not simply a market for technology — Africa is a place where globally significant technology can be created.”
+                            </p>
+                        </div>
+                    </section>
+
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="glass-card p-8 rounded-3xl border-blue-500/20">
+                                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6"><i data-lucide="eye" className="w-6 h-6"></i></div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Our Vision</h3>
+                                <p className="text-slate-300 leading-relaxed">“To become a globally recognized technology company originating from Africa.”</p>
+                            </div>
+                            <div className="glass-card p-8 rounded-3xl border-cyan-500/20">
+                                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-6"><i data-lucide="compass" className="w-6 h-6"></i></div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Our Mission</h3>
+                                <p className="text-slate-300 leading-relaxed">“To create innovative, accessible and scalable technology solutions that solve real-world problems and create meaningful economic opportunities.”</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center max-w-2xl mx-auto mb-12">
+                            <h2 className="text-3xl font-extrabold text-white">Our Core Values</h2>
+                            <p className="text-slate-400 mt-2">The foundational principles that guide every product we engineer.</p>
+                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                            {['Innovation', 'Integrity', 'Impact', 'Accessibility', 'Excellence', 'Sustainability'].map((val, i) => (
+                                <div key={i} className="glass-card p-6 rounded-2xl text-center space-y-3">
+                                    <div className="w-10 h-10 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400">
+                                        <i data-lucide="check-circle" className="w-5 h-5"></i>
+                                    </div>
+                                    <h4 className="font-bold text-white text-sm">{val}</h4>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Technology Stack Grid */}
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center max-w-2xl mx-auto mb-12">
+                            <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Infrastructure</span>
+                            <h2 className="text-3xl font-extrabold text-white mt-1">Powered by Innovation</h2>
+                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            {[
+                                { title: 'AI & Machine Learning', icon: 'cpu' },
+                                { title: 'Mobile Applications', icon: 'smartphone' },
+                                { title: 'Cloud Technology', icon: 'cloud' },
+                                { title: 'FinTech', icon: 'credit-card' },
+                                { title: 'Mobility Technology', icon: 'zap' },
+                                { title: 'Advertising Technology', icon: 'tv' },
+                                { title: 'Data & Analytics', icon: 'bar-chart-2' },
+                                { title: 'Digital Education', icon: 'book-open' }
+                            ].map((tech, i) => (
+                                <div key={i} className="glass-card p-6 rounded-2xl flex items-center space-x-4">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0">
+                                        <i data-lucide={tech.icon} className="w-5 h-5"></i>
+                                    </div>
+                                    <span className="font-semibold text-white text-sm">{tech.title}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // PRODUCTS PAGE
+        function ProductsPage({ navigateTo }) {
+            return (
+                <div className="space-y-24 py-12">
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-4">
+                        <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Digital Portfolio</span>
+                        <h1 className="text-4xl sm:text-5xl font-extrabold text-white">Our Technology Ecosystem</h1>
+                        <p className="text-slate-300 text-lg">“Building products that solve meaningful problems across Africa and the world.”</p>
+                    </section>
+
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                        {/* 1. AdLease */}
+                        <div className="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <div className="lg:col-span-7 space-y-6">
+                                <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-wider">Watch. Earn. Own.</span>
+                                <h2 className="text-3xl font-extrabold text-white">AdLease</h2>
+                                <p className="text-slate-300 text-base leading-relaxed">“An advertising-powered device ownership platform designed to help users work toward smartphone ownership while creating value for users, advertisers and financing partners.”</p>
+                                <div className="grid grid-cols-2 gap-4 pt-2">
+                                    {['Watch Ads', 'Earn Rewards', 'Track Balance', 'Device Ownership', 'Advertising Ecosystem'].map((feat, i) => (
+                                        <div key={i} className="flex items-center space-x-2 text-sm text-slate-300">
+                                            <i data-lucide="check" className="w-4 h-4 text-blue-400"></i>
+                                            <span>{feat}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="pt-4">
+                                    <button onClick={() => navigateTo('contact')} className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-sm shadow-lg shadow-blue-500/20 hover:opacity-95 transition">
+                                        Explore AdLease
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="lg:col-span-5 bg-gradient-to-br from-blue-900/40 to-slate-900/80 p-8 rounded-2xl border border-blue-500/20 text-center">
+                                <div className="w-16 h-16 mx-auto rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-4 shadow-inner">
+                                    <i data-lucide="smartphone" className="w-8 h-8"></i>
+                                </div>
+                                <h4 className="text-white font-bold text-lg">Next-Gen FinTech & AdTech</h4>
+                                <p className="text-xs text-slate-400 mt-2">Empowering mobile connectivity through sustainable ownership models.</p>
+                            </div>
+                        </div>
+
+                        {/* 2. Zubari */}
+                        <div className="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <div className="lg:col-span-7 space-y-6">
+                                <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase tracking-wider">The Future of Urban Mobility</span>
+                                <h2 className="text-3xl font-extrabold text-white">Zubari</h2>
+                                <p className="text-slate-300 text-base leading-relaxed">“An electric mobility platform designed to connect people with convenient, efficient and sustainable transportation.”</p>
+                                <div className="grid grid-cols-2 gap-4 pt-2">
+                                    {['Electric Vehicles', 'Ride Booking', 'Smart Mobility', 'Driver & Passenger Platform', 'Sustainable Transportation'].map((feat, i) => (
+                                        <div key={i} className="flex items-center space-x-2 text-sm text-slate-300">
+                                            <i data-lucide="check" className="w-4 h-4 text-cyan-400"></i>
+                                            <span>{feat}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="pt-4">
+                                    <button onClick={() => navigateTo('contact')} className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-500 text-white font-semibold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
+                                        Discover Zubari
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="lg:col-span-5 bg-gradient-to-br from-cyan-900/40 to-slate-900/80 p-8 rounded-2xl border border-cyan-500/20 text-center">
+                                <div className="w-16 h-16 mx-auto rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-4 shadow-inner">
+                                    <i data-lucide="zap" className="w-8 h-8"></i>
+                                </div>
+                                <h4 className="text-white font-bold text-lg">Sustainable Urban Transport</h4>
+                                <p className="text-xs text-slate-400 mt-2">Zero-emission mobility solutions built for African cities.</p>
+                            </div>
+                        </div>
+
+                        {/* 3. AutoEar */}
+                        <div className="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <div className="lg:col-span-7 space-y-6">
+                                <span className="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-wider">Technology That Recognizes Your Vehicle</span>
+                                <h2 className="text-3xl font-extrabold text-white">AutoEar</h2>
+                                <p className="text-slate-300 text-base leading-relaxed">“An intelligent vehicle identification and discovery concept designed to make vehicle recognition smarter and more accessible.”</p>
+                                <div className="grid grid-cols-2 gap-4 pt-2">
+                                    {['Vehicle Recognition', 'AI-powered Identification', 'Vehicle Information', 'Smart Search'].map((feat, i) => (
+                                        <div key={i} className="flex items-center space-x-2 text-sm text-slate-300">
+                                            <i data-lucide="check" className="w-4 h-4 text-indigo-400"></i>
+                                            <span>{feat}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="pt-4">
+                                    <button onClick={() => navigateTo('contact')} className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-500 text-white font-semibold text-sm shadow-lg shadow-indigo-500/20 hover:opacity-95 transition">
+                                        Explore AutoEar
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="lg:col-span-5 bg-gradient-to-br from-indigo-900/40 to-slate-900/80 p-8 rounded-2xl border border-indigo-500/20 text-center">
+                                <div className="w-16 h-16 mx-auto rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4 shadow-inner">
+                                    <i data-lucide="cpu" className="w-8 h-8"></i>
+                                </div>
+                                <h4 className="text-white font-bold text-lg">AI Vision & Identification</h4>
+                                <p className="text-xs text-slate-400 mt-2">Advanced neural networks for instant vehicle intelligence.</p>
+                            </div>
+                        </div>
+
+                        {/* 4. AeroVault */}
+                        <div className="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <div className="lg:col-span-7 space-y-6">
+                                <span className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-bold uppercase tracking-wider">Smarter Aviation Learning</span>
+                                <h2 className="text-3xl font-extrabold text-white">AeroVault</h2>
+                                <p className="text-slate-300 text-base leading-relaxed">“A digital educational platform designed to make aeronautical engineering education, technical resources and aviation learning more accessible.”</p>
+                                <div className="grid grid-cols-2 gap-4 pt-2">
+                                    {['Aviation Resources', 'Engineering Learning', 'Technical Documentation', 'Exam Preparation', 'Digital Learning'].map((feat, i) => (
+                                        <div key={i} className="flex items-center space-x-2 text-sm text-slate-300">
+                                            <i data-lucide="check" className="w-4 h-4 text-purple-400"></i>
+                                            <span>{feat}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="pt-4">
+                                    <button onClick={() => navigateTo('contact')} className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold text-sm shadow-lg shadow-purple-500/20 hover:opacity-95 transition">
+                                        Explore AeroVault
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="lg:col-span-5 bg-gradient-to-br from-purple-900/40 to-slate-900/80 p-8 rounded-2xl border border-purple-500/20 text-center">
+                                <div className="w-16 h-16 mx-auto rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-4 shadow-inner">
+                                    <i data-lucide="book-open" className="w-8 h-8"></i>
+                                </div>
+                                <h4 className="text-white font-bold text-lg">Next-Gen EdTech</h4>
+                                <p className="text-xs text-slate-400 mt-2">Empowering the next generation of African aeronautical engineers.</p>
+                            </div>
+                        </div>
+
+                        {/* 5. The Haven */}
+                        <div className="glass-card p-8 md:p-12 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <div className="lg:col-span-7 space-y-6">
+                                <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">Turning Diaspora Connections Into Opportunity</span>
+                                <h2 className="text-3xl font-extrabold text-white">The Haven</h2>
+                                <p className="text-slate-300 text-base leading-relaxed">“A digital platform concept designed to connect diaspora capital with opportunities, investments and meaningful economic participation.”</p>
+                                <div className="pt-4">
+                                    <button onClick={() => navigateTo('contact')} className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-blue-500 text-white font-semibold text-sm shadow-lg shadow-emerald-500/20 hover:opacity-95 transition">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="lg:col-span-5 bg-gradient-to-br from-emerald-900/40 to-slate-900/80 p-8 rounded-2xl border border-emerald-500/20 text-center">
+                                <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4 shadow-inner">
+                                    <i data-lucide="shield" className="w-8 h-8"></i>
+                                </div>
+                                <h4 className="text-white font-bold text-lg">Diaspora Capital Platform</h4>
+                                <p className="text-xs text-slate-400 mt-2">Bridging global capital with high-impact domestic opportunities.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // CAREERS PAGE
+        function CareersPage({ navigateTo, formSubmitted, handleFormSubmit }) {
+            return (
+                <div className="space-y-24 py-12">
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-4">
+                        <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Join Our Team</span>
+                        <h1 className="text-4xl sm:text-5xl font-extrabold text-white">Build the Future With Us.</h1>
+                        <p className="text-slate-300 text-lg">“At Avaru, we believe great technology is built by ambitious people who are willing to solve difficult problems.”</p>
+                    </section>
+
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center max-w-2xl mx-auto mb-12">
+                            <h2 className="text-3xl font-extrabold text-white">Open Career Categories</h2>
+                            <p className="text-slate-400 mt-2">Explore opportunities across our engineering, product and business units.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {[
+                                { title: 'Software Engineering', icon: 'code' },
+                                { title: 'AI & Machine Learning', icon: 'cpu' },
+                                { title: 'Product Design', icon: 'layout' },
+                                { title: 'Product Management', icon: 'briefcase' },
+                                { title: 'Aviation Technology', icon: 'book-open' },
+                                { title: 'Business Development', icon: 'trending-up' },
+                                { title: 'Marketing', icon: 'tv' },
+                                { title: 'Operations', icon: 'settings' }
+                            ].map((cat, i) => (
+                                <div key={i} className="glass-card p-6 rounded-2xl space-y-3">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+                                        <i data-lucide={cat.icon} className="w-5 h-5"></i>
+                                    </div>
+                                    <h3 className="font-bold text-white text-base">{cat.title}</h3>
+                                    <p className="text-xs text-slate-400">Remote & Nairobi Hybrid</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Careers Application Form */}
+                    <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="glass-panel p-8 md:p-12 rounded-3xl relative">
+                            <div className="text-center max-w-xl mx-auto mb-8 space-y-2">
+                                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Submit Your Application</h2>
+                                <p className="text-slate-400 text-sm">Send your credentials to join our elite engineering and product team.</p>
+                            </div>
+                            {formSubmitted && (
+                                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-center text-sm font-medium">
+                                    Application received successfully! Our talent team will review and get in touch.
+                                </div>
+                            )}
+                            <form onSubmit={handleFormSubmit} className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Full Name</label>
+                                        <input type="text" required placeholder="John Doe" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Email Address</label>
+                                        <input type="email" required placeholder="john@example.com" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Role of Interest</label>
+                                        <select className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm">
+                                            <option>Software Engineering</option>
+                                            <option>AI & Machine Learning</option>
+                                            <option>Product Design</option>
+                                            <option>Product Management</option>
+                                            <option>Aviation Technology</option>
+                                            <option>Business Development</option>
+                                            <option>Marketing</option>
+                                            <option>Operations</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">CV / Resume Upload</label>
+                                        <input type="file" required className="w-full px-4 py-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Portfolio / LinkedIn URL</label>
+                                    <input type="url" placeholder="https://linkedin.com/in/username" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Message / Cover Note</label>
+                                    <textarea rows="4" placeholder="Tell us about your background and why you want to build with Avaru..." className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm"></textarea>
+                                </div>
+                                <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-sm shadow-xl shadow-blue-500/20 hover:opacity-95 transition">
+                                    Submit Application
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // INVESTORS PAGE
+        function InvestorsPage({ navigateTo, formSubmitted, handleFormSubmit }) {
+            return (
+                <div className="space-y-24 py-12">
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-6">
+                        <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Investor Relations</span>
+                        <h1 className="text-4xl sm:text-5xl font-extrabold text-white">Invest in the Future We Are Building.</h1>
+                        <p className="text-slate-300 text-lg leading-relaxed">
+                            “Avaru is building a portfolio of technology products designed around large and growing opportunities across Africa and emerging markets.”
+                        </p>
+                    </section>
+
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="glass-card p-8 rounded-3xl">
+                                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6"><i data-lucide="layers" className="w-6 h-6"></i></div>
+                                <h3 className="text-xl font-bold text-white mb-2">Technology Portfolio</h3>
+                                <p className="text-slate-400 text-sm">Multiple scalable product concepts spanning fintech, mobility, AI, and aviation.</p>
+                            </div>
+                            <div className="glass-card p-8 rounded-3xl">
+                                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mb-6"><i data-lucide="trending-up" className="w-6 h-6"></i></div>
+                                <h3 className="text-xl font-bold text-white mb-2">Market Opportunity</h3>
+                                <p className="text-slate-400 text-sm">Africa's rapidly expanding digital economy and rising demand for native enterprise software.</p>
+                            </div>
+                            <div className="glass-card p-8 rounded-3xl">
+                                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6"><i data-lucide="globe" className="w-6 h-6"></i></div>
+                                <h3 className="text-xl font-bold text-white mb-2">Long-Term Vision</h3>
+                                <p className="text-slate-400 text-sm">Building globally relevant technology originating from Nairobi, Kenya.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Investor Inquiry Form */}
+                    <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="glass-panel p-8 md:p-12 rounded-3xl relative border border-blue-500/30">
+                            <div className="text-center max-w-xl mx-auto mb-8 space-y-2">
+                                <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">Secure Portal</span>
+                                <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Investor Inquiry</h2>
+                                <p className="text-slate-400 text-sm">Connect with our leadership team regarding investment opportunities and strategic syndicates.</p>
+                            </div>
+                            {formSubmitted && (
+                                <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-center text-sm font-medium">
+                                    Investor inquiry submitted securely. Our executive team will reach out promptly.
+                                </div>
+                            )}
+                            <form onSubmit={handleFormSubmit} className="space-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Full Name</label>
+                                        <input type="text" required placeholder="Jane Smith" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Company / Fund</label>
+                                        <input type="text" required placeholder="Ventures Capital LLC" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Email Address</label>
+                                        <input type="email" required placeholder="jane@fund.com" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Investment Interest</label>
+                                        <select className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm">
+                                            <option>Seed Investment</option>
+                                            <option>Series A Partnership</option>
+                                            <option>Strategic Venture Syndicate</option>
+                                            <option>Ecosystem Partnership</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Message</label>
+                                    <textarea rows="4" placeholder="Describe your investment focus and interest in Avaru..." className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm"></textarea>
+                                </div>
+                                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                    <button type="submit" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-sm shadow-xl shadow-blue-500/20 hover:opacity-95 transition">
+                                        Become an Avaru Partner
+                                    </button>
+                                    <button type="button" onClick={() => navigateTo('contact')} className="w-full sm:w-auto px-6 py-4 rounded-xl glass-card text-white font-semibold text-sm hover:border-blue-500/50 transition">
+                                        Investor Relations
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // BLOG PAGE
+        function BlogPage() {
+            const articles = [
+                {
+                    title: "Why Africa Will Shape the Next Generation of Technology",
+                    category: "African Innovation",
+                    date: "September 2, 2026",
+                    excerpt: "Examining how leapfrogging infrastructure and youthful populations position African tech companies to pioneer global paradigms."
+                },
+                {
+                    title: "The Future of Device Ownership in Africa",
+                    category: "FinTech",
+                    date: "August 28, 2026",
+                    excerpt: "How advertising-powered models and flexible financing are unlocking smartphone penetration across emerging markets."
+                },
+                {
+                    title: "AI and the Transformation of African Businesses",
+                    category: "AI",
+                    date: "August 15, 2026",
+                    excerpt: "Deploying custom neural networks and machine learning pipelines to optimize logistics, retail, and enterprise workflows."
+                },
+                {
+                    title: "The Future of Electric Mobility",
+                    category: "Mobility",
+                    date: "August 4, 2026",
+                    excerpt: "Transitioning African urban transit to sustainable electric fleets supported by decentralized charging infrastructure."
+                },
+                {
+                    title: "Building Global Technology From Kenya",
+                    category: "Technology",
+                    date: "July 22, 2026",
+                    excerpt: "Inside Nairobi's engineering culture and the strategy behind scaling robust digital products to international markets."
+                }
+            ];
+
+            return (
+                <div className="space-y-24 py-12">
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-4">
+                        <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Insights & Perspectives</span>
+                        <h1 className="text-4xl sm:text-5xl font-extrabold text-white">The Avaru Tech Blog</h1>
+                        <p className="text-slate-300 text-lg">Thoughts on engineering, innovation, and the future of technology from Africa.</p>
+                    </section>
+
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {articles.map((art, i) => (
+                                <div key={i} className="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group">
+                                    <div className="p-8 space-y-4">
+                                        <div className="flex items-center justify-between text-xs">
+                                            <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 font-semibold">{art.category}</span>
+                                            <span className="text-slate-400">{art.date}</span>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition">{art.title}</h3>
+                                        <p className="text-slate-400 text-sm leading-relaxed">{art.excerpt}</p>
+                                    </div>
+                                    <div className="px-8 pb-8 pt-0">
+                                        <button className="inline-flex items-center space-x-2 text-blue-400 font-semibold text-sm hover:text-blue-300 transition">
+                                            <span>Read More</span>
+                                            <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // CONTACT PAGE
+        function ContactPage({ formSubmitted, handleFormSubmit }) {
+            return (
+                <div className="space-y-24 py-12">
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-4">
+                        <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Get in Touch</span>
+                        <h1 className="text-4xl sm:text-5xl font-extrabold text-white">Let's Talk Technology.</h1>
+                        <p className="text-slate-300 text-lg">We are open to partnerships, customer inquiries, and strategic collaborations.</p>
+                    </section>
+
+                    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                            <div className="lg:col-span-5 space-y-8">
+                                <div className="glass-card p-8 rounded-3xl space-y-6">
+                                    <h3 className="text-2xl font-bold text-white">Avaru Tech Company Limited</h3>
+                                    <div className="space-y-4 text-sm text-slate-300">
+                                        <div className="flex items-start space-x-3">
+                                            <i data-lucide="map-pin" className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5"></i>
+                                            <span>Nairobi, Kenya</span>
+                                        </div>
+                                        <div className="flex items-center space-x-3">
+                                            <i data-lucide="mail" className="w-5 h-5 text-blue-400 flex-shrink-0"></i>
+                                            <span>hello@avaru.tech</span>
+                                        </div>
+                                    </div>
+                                    <div className="pt-4 border-t border-slate-800">
+                                        <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Connect on Socials</h4>
+                                        <div className="flex space-x-4">
+                                            <a href="#linkedin" className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="linkedin" className="w-5 h-5"></i></a>
+                                            <a href="#x" className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="twitter" className="w-5 h-5"></i></a>
+                                            <a href="#instagram" className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="instagram" className="w-5 h-5"></i></a>
+                                            <a href="#facebook" className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white hover:bg-blue-600 transition"><i data-lucide="facebook" className="w-5 h-5"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="lg:col-span-7">
+                                <div className="glass-panel p-8 md:p-12 rounded-3xl">
+                                    <h3 className="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
+                                    {formSubmitted && (
+                                        <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-center text-sm font-medium">
+                                            Message sent successfully! We will get back to you shortly.
+                                        </div>
+                                    )}
+                                    <form onSubmit={handleFormSubmit} className="space-y-6">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Name</label>
+                                                <input type="text" required placeholder="John Doe" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Email</label>
+                                                <input type="email" required placeholder="john@example.com" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                            </div>
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Company</label>
+                                                <input type="text" placeholder="Company Name" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Subject</label>
+                                                <input type="text" required placeholder="Partnership Inquiry" className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Message</label>
+                                            <textarea rows="5" required placeholder="How can we collaborate..." className="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white focus:outline-none focus:border-blue-500 text-sm"></textarea>
+                                        </div>
+                                        <button type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold text-sm shadow-xl shadow-blue-500/20 hover:opacity-95 transition">
+                                            Send Message
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        // PRIVACY POLICY PAGE
+        function PrivacyPage() {
+            return (
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
+                    <div className="space-y-4">
+                        <span className="text-blue-400 font-semibold text-xs tracking-widest uppercase">Legal</span>
+                        <h1 className="text-4xl font-extrabold text-white">Privacy Policy</h1>
+                        <p className="text-slate-400 text-sm">Last updated: September 2026</p>
+                    </div>
+                    <div className="glass-panel p-8 md:p-12 rounded-3xl space-y-6 text-slate-300 text-sm leading-relaxed">
+                        <h2 className="text-xl font-bold text-white">1. Introduction</h2>
+                        <p>Avaru Tech Company Limited ("Avaru", "we", "our", or "us") respects your privacy and is committed to protecting your personal data. This privacy policy informs you as to how we look after your personal data when you visit our website or interact with our digital products and services.</p>
+                        
+                        <h2 className="text-xl font-bold text-white">2. Data We Collect</h2>
+                        <p>We may collect, use, store and transfer different kinds of personal data about you including identity data, contact data, technical data, and usage data when you submit forms, apply for careers, or explore our products.</p>
+                        
+                        <h2 className="text-xl font-bold text-white">3. How We Use Your Data</h2>
+                        <p>We use your data strictly to provide and improve our technology products, communicate regarding partnerships and career opportunities, and comply with legal obligations.</p>
+
+                        <h2 className="text-xl font-bold text-white">4. Contact Us</h2>
+                        <p>If you have any questions about this privacy policy, please contact us at <span className="text-blue-400">hello@avaru.tech</span>.</p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
