@@ -47,7 +47,12 @@ await mkdir(out, { recursive: true });
 // Static files (CSS, JS, icons, images) are copied as-is.
 await cp(join(root, 'public'), out, { recursive: true });
 
-// Each route is written as <route>.html; vercel.json "cleanUrls" serves it at /<route>.
+// Original repository files that must stay reachable at their exact URL,
+// byte-for-byte unchanged. vercel.json exempts them from the .html redirect.
+const PASSTHROUGH = ['gemini-code-1788439996424.html'];
+for (const f of PASSTHROUGH) await cp(join(root, f), join(out, f));
+
+// Each route is written as <route>.html; the rewrite in vercel.json serves it at /<route>.
 for (const p of pages) {
   const file = p.file || (p.path === '/' ? 'index.html' : `${p.path.slice(1)}.html`);
   const dest = join(out, file);

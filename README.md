@@ -77,7 +77,8 @@ Vercel reads `vercel.json`:
 - Build command: `node build.mjs`
 - Output directory: `dist`
 - Install command: none (no dependencies)
-- Clean URLs: `/about` serves `about.html`, and `/about.html` redirects to `/about`
+- Clean URLs: a rewrite serves `about.html` at `/about`, and `/about.html` redirects to `/about`
+  (the built-in `cleanUrls` option is off so the Gemini file below can keep its `.html` URL)
 - Security headers: CSP, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and others
 
 Release process:
@@ -114,9 +115,16 @@ Deployment Protection.
 ## Original files
 
 `CNAME` and `gemini-code-1788439996424.html` are the repository's original
-files and are kept unchanged. They are **not** copied into the published site:
+files and are kept unchanged.
 
-- `CNAME` is only used by GitHub Pages, which is not enabled. Vercel ignores it.
-- `gemini-code-1788439996424.html` is the earlier single-file version of the site.
-  It contains outdated content (for example, wrong product statuses and contact
-  details), so publishing it would contradict the new site.
+- `gemini-code-1788439996424.html` is copied byte-for-byte into the published
+  site and stays reachable at `/gemini-code-1788439996424.html`. It is the
+  earlier single-file version of the site and loads React, Babel, Tailwind and
+  Lucide from CDNs, so `vercel.json` gives that one URL its own, looser
+  Content-Security-Policy. It is also sent with `X-Robots-Tag: noindex` so its
+  outdated content does not appear in search results, and it is left out of the
+  sitemap. `build.mjs` (`PASSTHROUGH`) and `scripts/check.mjs` list it.
+- `CNAME` is only used by GitHub Pages, which is not enabled. Vercel ignores it,
+  so it stays in the repository but is not published. Its current value,
+  `avaru.tech.com`, is not a domain you can register (it would be a subdomain of
+  `tech.com`).

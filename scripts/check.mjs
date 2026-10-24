@@ -7,8 +7,12 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+// Original files copied through unchanged; they are not site pages, so page checks skip them.
+const PASSTHROUGH = ['gemini-code-1788439996424.html'];
 const files = (await readdir(dist, { recursive: true })).map(String);
-const htmlFiles = files.filter((f) => f.endsWith('.html'));
+const htmlFiles = files.filter((f) => f.endsWith('.html') && !PASSTHROUGH.includes(f));
+for (const f of PASSTHROUGH) if (!files.includes(f)) errors_early(`passthrough file missing from dist: ${f}`);
+function errors_early(m) { console.error('✗ ' + m); process.exit(1); }
 const errors = [];
 const fail = (m) => errors.push(m);
 
