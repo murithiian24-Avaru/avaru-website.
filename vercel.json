@@ -9,8 +9,8 @@
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
     {
-      "source": "/:page((?!gemini-code-1788439996424\\.html$)[^.]+)\\.html",
-      "destination": "/:page",
+      "source": "/((?!gemini-code-1788439996424)[^.]+)\\.html",
+      "destination": "/$1",
       "permanent": true
     }
   ],
