@@ -44,11 +44,16 @@ export default function home() {
     )
     .join('');
 
+  // Headline is the official tagline; its last two words carry the accent colour.
+  const words = site.tagline.split(' ');
+  const taglineLead = words.slice(0, -2).join(' ');
+  const taglineAccent = words.slice(-2).join(' ');
+
   const body = `
 <section class="hero container">
   <div class="hero-copy">
     <p class="badge">${icon('sparkle')} Kenyan technology company</p>
-    <h1><span class="hero-name">AVARU</span> <span class="gradient-text">${esc(site.tagline)}.</span></h1>
+    <h1>${esc(taglineLead)} <span class="gradient-text">${esc(taglineAccent)}.</span></h1>
     <p class="lead">${site.legalName} is a technology company in ${site.country} creating digital products that aim to solve real-world problems, starting with AdLease, our ad-supported phone ownership app, which is now in development.</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="/products">Explore our products ${icon('arrowRight')}</a>
