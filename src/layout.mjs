@@ -118,6 +118,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<script src="/assets/js-flag.js"></script>
 <link rel="stylesheet" href="/assets/styles.css">
 <script src="/assets/main.js" defer></script>
 ${ld}
