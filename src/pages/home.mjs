@@ -1,7 +1,7 @@
 import { site } from '../site.mjs';
 import { products, STATUS } from '../products.mjs';
 import { icon } from '../icons.mjs';
-import { statusPill, ctaBand } from '../layout.mjs';
+import { statusPill, ctaBand, esc } from '../layout.mjs';
 
 export default function home() {
   const statusRows = products
@@ -48,7 +48,7 @@ export default function home() {
 <section class="hero container">
   <div class="hero-copy">
     <p class="badge">${icon('sparkle')} Kenyan technology company</p>
-    <h1><span class="hero-name">AVARU</span> <span class="gradient-text">Building Technology for a Smarter Future.</span></h1>
+    <h1><span class="hero-name">AVARU</span> <span class="gradient-text">${esc(site.tagline)}.</span></h1>
     <p class="lead">${site.legalName} is a technology company in ${site.country} creating digital products that aim to solve real-world problems, starting with AdLease, our ad-supported phone ownership app, which is now in development.</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="/products">Explore our products ${icon('arrowRight')}</a>

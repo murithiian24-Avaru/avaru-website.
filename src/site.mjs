@@ -11,7 +11,9 @@ export const site = {
   email: 'infoavarultd@gmail.com',
   country: 'Kenya',
   countryCode: 'KE',
-  tagline: 'Building Technology for a Smarter Future',
+  // Official tagline (confirmed by the company, Oct 2026). Used in the footer, home page,
+  // home page title and the social share image (public/og-image.png; see "Brand and logo" in README.md).
+  tagline: 'The Power Behind Everyday Innovation',
   description:
     'Avaru Tech Company Limited is a Kenyan technology company building digital products for device access, transport, AI diagnostics, aviation learning and the diaspora.',
   // Social accounts are intentionally empty until verified profiles are provided.

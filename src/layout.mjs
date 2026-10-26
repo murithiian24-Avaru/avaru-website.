@@ -108,18 +108,18 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
-<meta property="og:image" content="${site.url}/og-image.png?v=2">
+<meta property="og:image" content="${site.url}/og-image.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="${esc(site.legalName)} logo">
+<meta property="og:image:alt" content="${esc(site.legalName)} logo. ${esc(site.tagline)}.">
 <meta property="og:locale" content="en_KE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(fullTitle)}">
 <meta name="twitter:description" content="${esc(description)}">
-<meta name="twitter:image" content="${site.url}/og-image.png?v=2">
+<meta name="twitter:image" content="${site.url}/og-image.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700&display=swap">
 <link rel="stylesheet" href="/assets/styles.css">
 <script src="/assets/main.js" defer></script>
 ${ld}
