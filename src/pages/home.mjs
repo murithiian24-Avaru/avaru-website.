@@ -110,7 +110,7 @@ ${ctaBand({
     name: site.legalName,
     alternateName: site.name,
     url: site.url + '/',
-    logo: site.url + '/logo.png',
+    logo: site.url + '/logo.png?v=2',
     email: site.email,
     address: { '@type': 'PostalAddress', addressCountry: site.countryCode },
     ...(site.social.length ? { sameAs: site.social.map((s) => s.url) } : {}),
