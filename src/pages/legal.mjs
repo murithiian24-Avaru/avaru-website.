@@ -63,7 +63,7 @@ ${pageHero({ eyebrow: 'Legal', title: 'Terms and conditions', lead: `Last update
 <section class="section container">
   <div class="notice" role="note">
     ${icon('fileText')}
-    <p><strong>Draft:</strong> These terms are a working draft and are being reviewed by a legal adviser. They may change.</p>
+    <p><strong>Draft:</strong> These terms are a working draft and may change before they are finalised.</p>
   </div>
   <div class="card prose legal">
     <p>These terms apply to your use of this website, operated by ${site.legalName} ("Avaru", "we", "us"). By using the website, you agree to them.</p>
@@ -103,7 +103,7 @@ ${pageHero({ eyebrow: 'Legal', title: 'Terms and conditions', lead: `Last update
   return {
     path: '/terms',
     title: 'Terms & Conditions',
-    description: `Terms and conditions for using the ${site.legalName} website (draft under legal review).`,
+    description: `Terms and conditions for using the ${site.legalName} website (draft).`,
     body,
   };
 }

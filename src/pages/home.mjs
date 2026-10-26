@@ -90,7 +90,7 @@ export default function home() {
     </div>
     <ul class="principles">
       <li><span class="card-icon">${icon('target')}</span><div><h3>Start from real problems</h3><p>We focus on technology that addresses genuine everyday challenges.</p></div></li>
-      <li><span class="card-icon">${icon('shield')}</span><div><h3>Build carefully</h3><p>Security, privacy and reliability are part of the design from the start.</p></div></li>
+      <li><span class="card-icon">${icon('shield')}</span><div><h3>Build carefully</h3><p>We aim to make security, privacy and reliability part of the design from the start.</p></div></li>
       <li><span class="card-icon">${icon('eye')}</span><div><h3>Be transparent</h3><p>Every product shows its real status: in development or concept.</p></div></li>
     </ul>
   </div>

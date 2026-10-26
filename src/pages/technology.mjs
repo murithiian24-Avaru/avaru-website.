@@ -7,20 +7,20 @@ export default function technology() {
     {
       icon: 'code',
       title: 'Software engineering',
-      text: 'Our core skill is mobile development, with Android as our first platform. AdLease is being built as a native Android app, supported by the web and backend services a product needs.',
-      points: ['Android app development', 'Web front ends and APIs', 'Testing before every release'],
+      text: 'Our main focus is mobile development, with Android as our first platform. AdLease is being built as an Android app, with the web and backend services it will need.',
+      points: ['Android app development', 'Web front ends and APIs', 'Release testing (planned)'],
     },
     {
       icon: 'cpu',
       title: 'AI-enabled solutions',
       text: 'We are exploring practical uses of artificial intelligence. AutoEar, for example, is a concept for AI-assisted vehicle diagnostics. We only describe AI features as working once they are built and tested.',
-      points: ['Researching AI use cases', 'Human oversight by design', 'Clear limits on what AI can do'],
+      points: ['Researching AI use cases', 'Planning for human oversight', 'Clear limits on what AI can do'],
     },
     {
       icon: 'cloud',
       title: 'Cloud architecture',
-      text: 'We design services to run on managed cloud platforms, so a small team can operate them securely and scale them as demand grows.',
-      points: ['Managed, scalable hosting', 'Access control and secret management', 'Monitoring and backups'],
+      text: 'We plan to run our services on managed cloud platforms, so a small team can operate and scale them as demand grows.',
+      points: ['Managed cloud hosting (planned)', 'Access control and secret handling (planned)', 'Monitoring and backups (planned)'],
     },
     {
       icon: 'server',
@@ -53,7 +53,7 @@ ${pageHero({
     <span class="card-icon card-icon-lg">${icon('shield')}</span>
     <div class="prose">
       <h2 id="security-heading">Security and privacy</h2>
-      <p>Our products handle personal and, in some cases, financial information. We treat security and privacy as design requirements, not add-ons. That means limiting the data we collect, protecting credentials and keys, and reviewing third-party services before we use them.</p>
+      <p>Our products are expected to handle personal and, in some cases, financial information. We aim to treat security and privacy as design requirements, not add-ons: collecting only the data we need, protecting credentials and keys, and reviewing third-party services before we use them.</p>
     </div>
   </div>
 </section>

@@ -22,7 +22,7 @@ export const products = [
       'An advertising-supported, instalment-based phone ownership concept, designed to help people work toward owning a smartphone.',
     detail: [
       'AdLease is our highest-priority product. It explores a model where advertising and flexible instalments together help people work toward owning a smartphone.',
-      'An Android app is in development and is going through technical review and testing. AdLease is not yet available on Google Play or any other app store, and it is not offering devices or financing to the public.',
+      'An Android app is in development. AdLease is not yet available on Google Play or any other app store, and it is not offering devices or financing to the public.',
     ],
   },
   {
