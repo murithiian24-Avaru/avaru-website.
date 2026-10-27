@@ -51,13 +51,21 @@ for (const f of htmlFiles) {
   if (/lorem ipsum|testimonial|avaru\.tech|hello@|#facebook|#instagram|#linkedin|"#x"/i.test(html)) fail(`${route}: banned placeholder content`);
   for (const img of html.matchAll(/<img\b[^>]*>/g)) if (!/\salt="/.test(img[0])) fail(`${route}: <img> without alt`);
 
+  // Brand: only the official logo assets may be used (see "Brand and logo" in README.md).
+  if (!html.includes('src="/brand/avaru-logo-lockup.png"')) fail(`${route}: official logo missing from header/footer`);
+  if (/favicon\.svg|class="logo-mark"/.test(html)) fail(`${route}: outdated placeholder logo referenced`);
+  for (const m of html.matchAll(/<meta (?:property|name)="(?:og|twitter):image" content="([^"]+)"/g)) {
+    if (!fileSet.has(new URL(m[1]).pathname)) fail(`${route}: social image not found: ${m[1]}`);
+  }
+
   for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const url = m[1];
     if (/^(https?:|mailto:|tel:)/.test(url)) {
       if (url.startsWith('mailto:') && !url.startsWith('mailto:infoavarultd@gmail.com')) fail(`${route}: unexpected email ${url}`);
       continue;
     }
-    const [pathPart, hash] = url.split('#');
+    const [pathWithQuery, hash] = url.split('#');
+    const pathPart = pathWithQuery.split('?')[0];
     const target = pathPart === '' ? route : pathPart;
     if (!target.startsWith('/')) { fail(`${route}: relative link ${url}`); continue; }
     if (pathPart !== '' && !routes.has(target) && !fileSet.has(target)) { fail(`${route}: broken link ${url}`); continue; }

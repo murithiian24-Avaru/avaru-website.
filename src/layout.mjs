@@ -15,7 +15,9 @@ export const nav = [
 export const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-export const logo = `<span class="logo-mark" aria-hidden="true">A</span><span class="logo-text"><span class="logo-name">AVARU</span><span class="logo-sub">Tech Company</span></span>`;
+// Official Avaru logo (see "Brand and logo" in README.md). Do not replace with text, CSS or redrawn versions.
+// The image keeps the official artwork's proportions; only empty margin is trimmed.
+export const logo = `<img class="logo-img" src="/brand/avaru-logo-lockup.png" width="334" height="240" alt="Avaru">`;
 
 function header(path) {
   const links = nav
@@ -98,23 +100,23 @@ export function page({ path, title, description, body, jsonLd = [], noindex = fa
 <meta name="description" content="${esc(description)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">`}
 <meta name="theme-color" content="#050B14">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${esc(site.legalName)}">
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
-<meta property="og:image" content="${site.url}/og-image.png">
+<meta property="og:image" content="${site.url}/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="${esc(site.legalName)}: ${esc(site.tagline)}">
+<meta property="og:image:alt" content="${esc(site.legalName)} logo">
 <meta property="og:locale" content="en_KE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(fullTitle)}">
 <meta name="twitter:description" content="${esc(description)}">
-<meta name="twitter:image" content="${site.url}/og-image.png">
+<meta name="twitter:image" content="${site.url}/og-image.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
