@@ -96,6 +96,7 @@ export function page({ path, title, description, body, jsonLd = [], noindex = fa
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/assets/js-flag.js"></script>
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(description)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">`}
