@@ -51,6 +51,7 @@ src/layout.mjs         Shared page shell: <head>, header, footer, metadata
 src/icons.mjs          Inline SVG icons
 src/pages/*.mjs        One file per page
 public/                Copied to dist/ as-is: CSS, JS, favicon, logo, social image
+public/brand/          Official logo and the files made from it (see Brand and logo)
 scripts/serve.mjs      Local preview server
 scripts/check.mjs      Automated checks
 CNAME, gemini-code-1788439996424.html   Original files, kept unchanged (see below)
@@ -69,6 +70,30 @@ CNAME, gemini-code-1788439996424.html   Original files, kept unchanged (see belo
 - **Contact:** the site has no forms. Every "email" link opens the visitor's
   email app, addressed to the official email with a pre-filled subject.
   Nothing is collected or stored by the website.
+
+## Brand and logo
+
+The official Avaru logo is `public/brand/avaru-logo-official.png`, an exact,
+unmodified copy of the file approved by the company (1024×1024). It is the
+single source of truth. Every other logo file below is made from it by
+resizing or by trimming empty background only. Never recreate the logo in
+text, CSS or SVG, recolour it, stretch it, or use an alternative logo without
+written approval.
+
+| File | Made from the official logo | Used for |
+|---|---|---|
+| `public/brand/avaru-logo-official.png` | Original, byte-for-byte | Master file for all channels |
+| `public/brand/avaru-logo-lockup.png` | Empty margin trimmed, 334×240 | Header and footer (`src/layout.mjs`) |
+| `public/logo.png` | Resized to 512×512 | Google structured data (`src/pages/home.mjs`) |
+| `public/apple-touch-icon.png` | Resized to 180×180 | iPhone/iPad home-screen icon |
+| `public/og-image.png` | Placed on its own background colour, 1200×630 | Link previews (WhatsApp, LinkedIn, X) |
+| `public/favicon.ico`, `public/favicon-32.png`, `public/brand/avaru-icon-256.png` | The "A" mark cropped from the official logo | Browser tab icons (the full logo is unreadable at 16–48 px) |
+
+Icon and social-image links carry `?v=2` so browsers and social networks fetch
+the new files instead of cached old ones. If a logo file changes again, bump
+the number in `src/layout.mjs` and `src/pages/home.mjs`.
+`npm run check` fails if a page is missing the official logo or still
+references the old placeholder.
 
 ## Deployment (Vercel)
 
