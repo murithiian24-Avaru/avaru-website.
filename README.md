@@ -86,14 +86,34 @@ written approval.
 | `public/brand/avaru-logo-lockup.png` | Empty margin trimmed, 334×240 | Header and footer (`src/layout.mjs`) |
 | `public/logo.png` | Resized to 512×512 | Google structured data (`src/pages/home.mjs`) |
 | `public/apple-touch-icon.png` | Resized to 180×180 | iPhone/iPad home-screen icon |
-| `public/og-image.png` | Placed on its own background colour, 1200×630 | Link previews (WhatsApp, LinkedIn, X) |
+| `public/og-image.png` | Placed, unchanged, on its own background colour (#101823), 1200×630, with the tagline below as separate text in Inter SemiBold | Link previews (WhatsApp, LinkedIn, X) |
 | `public/favicon.ico`, `public/favicon-32.png`, `public/brand/avaru-icon-256.png` | The "A" mark cropped from the official logo | Browser tab icons (the full logo is unreadable at 16–48 px) |
 
-Icon and social-image links carry `?v=2` so browsers and social networks fetch
+Icon and social-image links carry a version (`?v=2`, social image `?v=3`) so browsers and social networks fetch
 the new files instead of cached old ones. If a logo file changes again, bump
 the number in `src/layout.mjs` and `src/pages/home.mjs`.
 `npm run check` fails if a page is missing the official logo or still
 references the old placeholder.
+
+### Tagline
+
+The official tagline is **"The Power Behind Everyday Innovation"**. It lives
+in one place, `tagline` in `src/site.mjs`, which feeds the home page heading,
+the home page title and the footer. It is also set as text (not part of the
+logo artwork) in `public/og-image.png`; if the tagline changes, regenerate
+that image and bump its `?v=` number in `src/layout.mjs`.
+
+### Typography
+
+Fonts are loaded from Google Fonts in `src/layout.mjs` and set through CSS
+variables at the top of `public/assets/styles.css`:
+
+- `--font-heading`: **Manrope** (600, 700) for headings
+- `--font-body`: **Inter** (400–700) for body text, navigation, buttons and footer
+- `--tracking-caps`: letter spacing for small uppercase labels
+
+Use these variables rather than naming fonts in individual rules. The logo
+artwork keeps its own lettering; never retype it in a website font.
 
 ## Deployment (Vercel)
 
