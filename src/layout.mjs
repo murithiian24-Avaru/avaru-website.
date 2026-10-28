@@ -19,6 +19,12 @@ export const esc = (s) =>
 // The image keeps the official artwork's proportions; only empty margin is trimmed.
 export const logo = `<img class="logo-img" src="/brand/avaru-logo-lockup.png" width="334" height="240" alt="Avaru">`;
 
+// "Powered by Avaru" endorsement for Avaru products (see "Endorsement mark" in README.md).
+// The mark is the "A" extracted from the official logo by scripts/brand/derive-mark.py, never redrawn.
+// The words are live text, not part of the artwork. The image is decorative because the text says it.
+export const endorsement = () =>
+  `<p class="endorsement"><img class="endorsement-mark" src="/brand/avaru-mark-white.png" width="398" height="285" alt="" loading="lazy" decoding="async"><span>Powered by Avaru</span></p>`;
+
 function header(path) {
   const links = nav
     .map((n) => {

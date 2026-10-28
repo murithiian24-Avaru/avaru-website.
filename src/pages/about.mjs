@@ -25,6 +25,7 @@ ${pageHero({
       <h2>Who we are</h2>
       <p>Avaru Tech is a Kenyan technology company that designs and builds digital products. We work across device access, transport, AI, aviation learning and diaspora projects. These are areas where we believe well-built technology can make everyday life more connected, accessible and intelligent.</p>
       <p>We are at an early stage. Our first product, <a href="/products#adlease">AdLease</a>, is in development. Our other products are concepts that we are researching and planning. We would rather show you exactly where we are than make claims we cannot support.</p>
+      <p>${site.legalName} is the parent company behind our <a href="/products">portfolio of products and concepts</a>. Each product keeps its own name and identity, and carries the Avaru &ldquo;A&rdquo; with the line &ldquo;Powered by Avaru&rdquo; as the mark of the company that stands behind it.</p>
     </div>
     <div class="stack">
       <div class="card"><span class="card-icon">${icon('target')}</span><h3>Our mission</h3><p>To create innovative, accessible and scalable technology solutions that solve real-world problems and create meaningful economic opportunities.</p></div>

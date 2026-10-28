@@ -1,6 +1,6 @@
 import { products, platforms, STATUS } from '../products.mjs';
 import { icon } from '../icons.mjs';
-import { pageHero, statusPill, ctaBand } from '../layout.mjs';
+import { pageHero, statusPill, ctaBand, endorsement } from '../layout.mjs';
 import { mailto } from '../site.mjs';
 
 export default function productsPage() {
@@ -28,6 +28,7 @@ export default function productsPage() {
         ${p.detail.map((d) => `<p>${d}</p>`).join('')}
         <p class="product-status-note"><strong>Status:</strong> ${STATUS[p.status].label}. ${STATUS[p.status].note}</p>
         <a class="text-link" href="${mailto(`${p.name} enquiry`)}">Ask about ${p.name} by email ${icon('arrowRight')}</a>
+        ${endorsement()}
       </article>`
     )
     .join('');

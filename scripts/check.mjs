@@ -3,6 +3,7 @@
 // Also checks the sitemap and robots.txt, and scans for banned placeholder content.
 // Run after a build: `node scripts/check.mjs` (or `npm run check`).
 import { readFile, readdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -54,6 +55,24 @@ for (const f of htmlFiles) {
   // Brand: only the official logo assets may be used (see "Brand and logo" in README.md).
   if (!html.includes('src="/brand/avaru-logo-lockup.png"')) fail(`${route}: official logo missing from header/footer`);
   if (/favicon\.svg|class="logo-mark"/.test(html)) fail(`${route}: outdated placeholder logo referenced`);
+  // Endorsement: exactly once in each of the five product cards on /products, nowhere else
+  // (not on Avaru Core / Nexus, the home page, header or footer). See "Endorsement mark" in README.md.
+  const endorsements = (html.match(/<p class="endorsement">/g) || []).length;
+  if (route === '/products') {
+    const cards = html.split('<article class="card product-detail').slice(1).map((c) => c.split('</article>')[0]);
+    if (cards.length !== 5) fail(`${route}: expected 5 product cards, found ${cards.length}`);
+    cards.forEach((c, i) => {
+      if ((c.match(/<p class="endorsement">/g) || []).length !== 1) fail(`${route}: product card ${i + 1} needs exactly one endorsement`);
+    });
+    if (endorsements !== 5) fail(`${route}: expected 5 endorsements, found ${endorsements}`);
+  } else if (endorsements) {
+    fail(`${route}: endorsement used outside the Products page cards`);
+  }
+  for (const m of html.matchAll(/<p class="endorsement">([\s\S]*?)<\/p>/g)) {
+    if (!m[1].includes('src="/brand/avaru-mark-white.png"') || !m[1].includes('<span>Powered by Avaru</span>')) {
+      fail(`${route}: endorsement must use the extracted mark and the words "Powered by Avaru"`);
+    }
+  }
   for (const m of html.matchAll(/<meta (?:property|name)="(?:og|twitter):image" content="([^"]+)"/g)) {
     if (!fileSet.has(new URL(m[1]).pathname)) fail(`${route}: social image not found: ${m[1]}`);
   }
@@ -72,6 +91,15 @@ for (const f of htmlFiles) {
     if (hash && !(pageIds.get(target) || new Set()).has(hash)) fail(`${route}: missing anchor ${url}`);
   }
 }
+
+// The official logo master must never change (full SHA-256 fingerprint).
+const MASTER_SHA256 = '9031557c5f24f9a9b58d49cff211357a28143b589d70ca2b2b619d7d0a31ab47';
+for (const p of [join(dist, 'brand/avaru-logo-official.png'), fileURLToPath(new URL('../public/brand/avaru-logo-official.png', import.meta.url))]) {
+  const digest = createHash('sha256').update(await readFile(p)).digest('hex');
+  if (digest !== MASTER_SHA256) fail(`official logo master changed: ${p} has SHA-256 ${digest}`);
+}
+const aboutHtml = await readFile(join(dist, 'about.html'), 'utf8');
+if (!aboutHtml.includes('is the parent company behind our')) fail('/about: parent-company paragraph missing');
 
 const sitemap = await readFile(join(dist, 'sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
