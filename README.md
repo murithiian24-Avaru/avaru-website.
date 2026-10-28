@@ -54,6 +54,7 @@ public/                Copied to dist/ as-is: CSS, JS, favicon, logo, social ima
 public/brand/          Official logo and the files made from it (see Brand and logo)
 scripts/serve.mjs      Local preview server
 scripts/check.mjs      Automated checks
+scripts/brand/         Extraction and verification of the endorsement mark (Python)
 CNAME, gemini-code-1788439996424.html   Original files, kept unchanged (see below)
 ```
 
@@ -88,12 +89,95 @@ written approval.
 | `public/apple-touch-icon.png` | Resized to 180×180 | iPhone/iPad home-screen icon |
 | `public/og-image.png` | Placed, unchanged, on its own background colour (#101823), 1200×630, with the tagline below as separate text in Inter SemiBold | Link previews (WhatsApp, LinkedIn, X) |
 | `public/favicon.ico`, `public/favicon-32.png`, `public/brand/avaru-icon-256.png` | The "A" mark cropped from the official logo | Browser tab icons (the full logo is unreadable at 16–48 px) |
+| `public/brand/avaru-mark-white.png` | The "A" extracted by `scripts/brand/derive-mark.py`: white artwork on transparent, 398×285, keyline and glow left out (see Endorsement mark) | "Powered by Avaru" endorsement on the Products page |
 
 Icon and social-image links carry a version (`?v=2`, social image `?v=3`) so browsers and social networks fetch
 the new files instead of cached old ones. If a logo file changes again, bump
 the number in `src/layout.mjs` and `src/pages/home.mjs`.
 `npm run check` fails if a page is missing the official logo or still
 references the old placeholder.
+
+### Endorsement mark ("Powered by Avaru")
+
+Avaru is the parent company of its products. Each product keeps its own name
+and identity and is endorsed with the Avaru "A" and the words "Powered by
+Avaru". On this website the endorsement appears once at the foot of each of the
+five product cards on `/products` (AdLease, Zubari, AeroVault, AutoEar, The
+Haven). It is not used on the home page, in the header or footer (they show the
+full official logo), or for Avaru Core and Avaru Nexus.
+
+**Usage rules:** `endorsement()` in `src/layout.mjs`. The mark is 24 px tall
+(never under 20 px, where the swoosh tip and inner opening blur), with clear
+space of at least half its height, on dark backgrounds only. "Powered by Avaru"
+is live text in Inter, never part of the image. The mark stays sharp up to
+about 140 px tall on standard screens (94 px on 3× phone screens); larger uses,
+print and app splash screens need the original vector artwork, which is not in
+this repository. Do not trace or vectorise the PNG.
+
+**How the mark is made.** `scripts/brand/derive-mark.py` extracts the "A" from
+the master. It never draws, traces, resizes, reshapes or recolours it:
+
+```bash
+python3 scripts/brand/derive-mark.py          # extract, save, verify (needs Pillow + NumPy)
+python3 scripts/brand/derive-mark.py --check  # verify the committed file only
+```
+
+The master contains white artwork, a navy background, a near-black **keyline**
+1–2 px wide around the artwork edges (broken in places), and a faint **glow** in
+the navy just outside the keyline. By the founder's decision (28 Oct 2026) the
+mark keeps the white artwork and leaves out the keyline and the glow. **The
+mark therefore does not reproduce every pixel of the master.**
+
+**Verification results** (28 Oct 2026, master SHA-256
+`9031557c5f24f9a9b58d49cff211357a28143b589d70ca2b2b619d7d0a31ab47`). The script
+first checks its own extraction, then separately re-reads the saved PNG and
+compares it with the master alone:
+
+| Check | Result | Limit |
+|---|---|---|
+| Master fingerprint (full SHA-256) | matches | must match |
+| Mark found in the master by search | x 320, y 248 (398×285 crop) | must match reported position |
+| White-artwork outline (50%) vs master | 0 of 38,234 artwork pixels differ | 0 |
+| Master pixels certainly ≥50% white but not opaque in mark | 0 | 0 |
+| Master pixels certainly <50% white but opaque in mark | 0 | 0 |
+| Retained pixels outside the keyline / on the keyline | 0 / 0 | 0 |
+| Detached faint pixels ("ghost rim") | 0 | 0 |
+| Kept edge pixels off their measured opacity | 0 of 5,294 | 0 |
+| Fully opaque pixels: least white in the master | 97.4% | ≥ 95% |
+| Opaque pixel colour vs master | max 7/255, mean 1.06 | ≤ 24/255 |
+| Dropped pixels outside the keyline: most white | 10.8% (4,738 px) | ≤ 11% (exception, below) |
+| Other dropped background: most white | 3.3% | ≤ 5% |
+| Pixels with evidence both ways (see below) | 18 (1.09% of outline) | ≤ 1.5% (exception, below) |
+
+Reported, not pass/fail: the mark placed on navy differs from the master by up
+to 35/255 where the keyline was removed (2,043 keyline pixels) and up to
+31/255 on edge pixels, because those pixels were keyline or glow in the master.
+2,081 very dark edge pixels (within background noise of navy or darker) are
+dropped; one pixel this dark cannot be read reliably, and could hold up to
+10.3% white.
+
+**Limitations and approved exceptions**
+
+- An edge pixel is part white and part dark, and the dark part may be keyline
+  or navy. Brightness alone cannot always tell which; 49 outline pixels are
+  undecidable that way. The script resolves them from neighbouring pixels (the
+  keyline is continuous): 48 touch the keyline, 1 touches only navy.
+- 18 of those touch **both** keyline and navy, where the keyline is broken. They
+  are read as keyline. Their opacity is uncertain by at most 14/255, and each
+  could fall on either side of the 50% outline. Positions (x, y in the master):
+  (410,530) (422,512) (424,347) (432,498) (439,489) (441,402) (442,415)
+  (444,483) (454,379) (456,404) (467,272) (486,322) (495,252) (495,433)
+  (551,266) (552,267) (571,297) (649,436). The limit for these was raised from
+  0.5% to 1.5% of the outline with the founder's approval.
+- Pixels outside the keyline are treated as background, including the faint
+  glow. Read as navy + white, the glow reaches 10.8% white, so the limit for
+  pixels within 2 px of the keyline was raised from 5% to 11% with the
+  founder's approval. All other background keeps the 5% limit.
+- At the 24 px endorsement size, one master pixel is about one twelfth of a
+  screen pixel, so none of the above is visible on the website.
+
+`npm run check` fails if the master's fingerprint changes, if a product card is
+missing the endorsement, or if the endorsement appears anywhere else.
 
 ### Tagline
 
