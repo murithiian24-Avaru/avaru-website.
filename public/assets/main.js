@@ -5,6 +5,7 @@
   var nav = document.getElementById('primary-nav');
   if (!toggle || !nav) return;
   document.documentElement.classList.add('js');
+  document.documentElement.setAttribute('data-nav-ready', '');
 
   function setOpen(open) {
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
